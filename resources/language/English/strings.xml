@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+  <strings>
+    <string id="32000">Device</string>
+    <string id="32001">Name:</string>
+    <string id="32002">Type:</string>
+    <string id="32003">Housecode:</string>
+    <string id="32004">Address:</string>
+    <string id="32005">Device:</string>
+    <string id="32010">Dimmer</string>
+    <string id="32011">On/Off</string>
+    <string id="32012">Jalousie</string>
+
+    <string id="32100">General Settings</string>
+    <string id="32101">LightManager Executable:</string>
+    <string id="32102">sudo Password (if needed):</string>
+    <string id="32103">FS20 Housecode:</string>
+
+    <string id="32200">Light Manager</string>
+    <string id="32201">On</string>
+    <string id="32202">Off</string>
+    <string id="32203">Toggle</string>
+    <string id="32204">Up</string>
+    <string id="32205">Down</string>
+    <string id="32206">Press to Toggle</string>
+    <string id="32207">Press to switch On</string>
+    <string id="32208">Press to switch Off</string>
+    <string id="32209">Press for Up</string>
+    <string id="32210">Press for Down</string>
+    <string id="32211">Slide (left/right), and press to Send</string>
+    <string id="32212">Sending </string>
+    <string id="32213">No LightManager! Try using sudo!</string>
+  </strings>
+

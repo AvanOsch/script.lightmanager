@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+    <category label="32000">
+        <setting label="32001" type="text" id="name1" default="Livingroom" />
+        <setting label="32002" type="labelenum" id="type1" values="FS20|IT|UNIROLL|SCENE" />
+        <setting label="32003" type="text" id="code1" default="A" visible="eq(-1,1)" />
+        <setting label="32004" type="number" id="addr1" default="1112" option="int" />
+        <setting label="32005" type="enum" id="kind1" lvalues="32010|32011|32012" />
+        <setting label="32005" type="number" id="dimm1" default="50.0" option="int" visible="false" />
+        <setting type="sep"/>
+        <setting label="32001" type="text" id="name2" default="" />
+        <setting label="32002" type="labelenum" id="type2" values="FS20|IT|UNIROLL|SCENE" visible="!eq(-1,)" />
+        <setting label="32003" type="text" id="code2" default="A" visible="eq(-1,1)+!eq(-1,3)+!eq(-4,)" />
+        <setting label="32004" type="number" id="addr2" default="1112" option="int" visible="!eq(-3,)" />
+        <setting label="32005" type="enum" id="kind2" lvalues="32010|32011|32012" visible="!eq(-3,3)+!eq(-4,)" />
+        <setting label="32005" type="number" id="dimm2" default="50.0" option="int" visible="false" />
+        <setting type="sep" visible="!eq(-6,)" />
+        <setting label="32001" type="text" id="name3" default="" visible="!eq(-7,)" />
+        <setting label="32002" type="labelenum" id="type3" values="FS20|IT|UNIROLL|SCENE" visible="!eq(-1,)" />
+        <setting label="32003" type="text" id="code3" default="A" visible="eq(-1,1)+!eq(-1,3)+!eq(-4,)" />
+        <setting label="32004" type="number" id="addr3" default="1112" option="int" visible="!eq(-3,)" />
+        <setting label="32005" type="enum" id="kind3" lvalues="32010|32011|32012" visible="!eq(-3,3)+!eq(-4,)" />
+        <setting label="32005" type="number" id="dimm3" default="50.0" option="int" visible="false" />
+        <setting type="sep" visible="!eq(-6,)" />
+        <setting label="32001" type="text" id="name4" default="" visible="!eq(-7,)" />
+        <setting label="32002" type="labelenum" id="type4" values="FS20|IT|UNIROLL|SCENE" visible="!eq(-1,)" />
+        <setting label="32003" type="text" id="code4" default="A" visible="eq(-1,1)+!eq(-1,3)+!eq(-4,)" />
+        <setting label="32004" type="number" id="addr4" default="1112" option="int" visible="!eq(-3,)" />
+        <setting label="32005" type="enum" id="kind4" lvalues="32010|32011|32012" visible="!eq(-3,3)+!eq(-4,)" />
+        <setting label="32005" type="number" id="dimm4" default="50.0" option="int" visible="false" />
+        <setting type="sep" visible="!eq(-6,)" />
+        <setting label="32001" type="text" id="name5" default="" visible="!eq(-7,)" />
+        <setting label="32002" type="labelenum" id="type5" values="FS20|IT|UNIROLL|SCENE" visible="!eq(-1,)" />
+        <setting label="32003" type="text" id="code5" default="A" visible="eq(-1,1)+!eq(-1,3)+!eq(-4,)" />
+        <setting label="32004" type="number" id="addr5" default="1112" option="int" visible="!eq(-3,)" />
+        <setting label="32005" type="enum" id="kind5" lvalues="32010|32011|32012" visible="!eq(-3,3)+!eq(-4,)" />
+        <setting label="32005" type="number" id="dimm5" default="50.0" option="int" visible="false" />
+        <setting type="sep" visible="!eq(-6,)" />
+        <setting label="32001" type="text" id="name6" default="" visible="!eq(-7,)" />
+        <setting label="32002" type="labelenum" id="type6" values="FS20|IT|UNIROLL|SCENE" visible="!eq(-1,)" />
+        <setting label="32003" type="text" id="code6" default="A" visible="eq(-1,1)+!eq(-1,3)+!eq(-4,)" />
+        <setting label="32004" type="number" id="addr6" default="1112" option="int" visible="!eq(-3,)" />
+        <setting label="32005" type="enum" id="kind6" lvalues="32010|32011|32012" visible="!eq(-3,3)+!eq(-4,)" />
+        <setting label="32005" type="number" id="dimm6" default="50.0" option="int" visible="false" />
+        <setting type="sep" visible="!eq(-6,)" />
+        <setting label="32001" type="text" id="name7" default="" visible="!eq(-7,)" />
+        <setting label="32002" type="labelenum" id="type7" values="FS20|IT|UNIROLL|SCENE" visible="!eq(-1,)" />
+        <setting label="32003" type="text" id="code7" default="A" visible="eq(-1,1)+!eq(-1,3)+!eq(-4,)" />
+        <setting label="32004" type="number" id="addr7" default="1112" option="int" visible="!eq(-3,)" />
+        <setting label="32005" type="enum" id="kind7" lvalues="32010|32011|32012" visible="!eq(-3,3)+!eq(-4,)" />
+        <setting label="32005" type="number" id="dimm7" default="50.0" option="int" visible="false" />
+        <setting type="sep" visible="!eq(-6,)" />
+        <setting label="32001" type="text" id="name8" default="" visible="!eq(-7,)" />
+        <setting label="32002" type="labelenum" id="type8" values="FS20|IT|UNIROLL|SCENE" visible="!eq(-1,)" />
+        <setting label="32003" type="text" id="code8" default="A" visible="eq(-1,1)+!eq(-1,3)+!eq(-4,)" />
+        <setting label="32004" type="number" id="addr8" default="1112" option="int" visible="!eq(-3,)" />
+        <setting label="32005" type="enum" id="kind8" lvalues="32010|32011|32012" visible="!eq(-3,3)+!eq(-4,)" />
+        <setting label="32005" type="number" id="dimm8" default="50.0" option="int" visible="false" />
+        <setting type="sep" visible="!eq(-6,)" />
+        <setting label="32001" type="text" id="name9" default="" visible="!eq(-7,)" />
+        <setting label="32002" type="labelenum" id="type9" values="FS20|IT|UNIROLL|SCENE" visible="!eq(-1,)" />
+        <setting label="32003" type="text" id="code9" default="A" visible="eq(-1,1)+!eq(-1,3)+!eq(-4,)" />
+        <setting label="32004" type="number" id="addr9" default="1112" option="int" visible="!eq(-3,)" />
+        <setting label="32005" type="enum" id="kind9" lvalues="32010|32011|32012" visible="!eq(-3,3)+!eq(-4,)" />
+        <setting label="32005" type="number" id="dimm9" default="50.0" option="int" visible="false" />
+        <setting type="sep" visible="!eq(-6,)" />
+        <setting label="32001" type="text" id="name10" default="" visible="!eq(-7,)" />
+        <setting label="32002" type="labelenum" id="type10" values="FS20|IT|UNIROLL|SCENE" visible="!eq(-1,)" />
+        <setting label="32003" type="text" id="code10" default="A" visible="eq(-1,1)+!eq(-1,3)+!eq(-4,)" />
+        <setting label="32004" type="number" id="addr10" default="1112" option="int" visible="!eq(-3,)" />
+        <setting label="32005" type="enum" id="kind10" lvalues="32010|32011|32012" visible="!eq(-3,3)+!eq(-4,)" />
+        <setting label="32005" type="number" id="dimm10" default="50.0" option="int" visible="false" />
+        <setting type="sep" visible="!eq(-6,)" />
+        <setting label="32001" type="text" id="name11" default="" visible="!eq(-7,)" />
+        <setting label="32002" type="labelenum" id="type11" values="FS20|IT|UNIROLL|SCENE" visible="!eq(-1,)" />
+        <setting label="32003" type="text" id="code11" default="A" visible="eq(-1,1)+!eq(-1,3)+!eq(-4,)" />
+        <setting label="32004" type="number" id="addr11" default="1112" option="int" visible="!eq(-3,)" />
+        <setting label="32005" type="enum" id="kind11" lvalues="32010|32011|32012" visible="!eq(-3,3)+!eq(-4,)" />
+        <setting label="32005" type="number" id="dimm11" default="50.0" option="int" visible="false" />
+        <setting type="sep" visible="!eq(-6,)" />
+        <setting label="32001" type="text" id="name12" default="" visible="!eq(-7,)" />
+        <setting label="32002" type="labelenum" id="type12" values="FS20|IT|UNIROLL|SCENE" visible="!eq(-1,)" />
+        <setting label="32003" type="text" id="code12" default="A" visible="eq(-1,1)+!eq(-1,3)+!eq(-4,)" />
+        <setting label="32004" type="number" id="addr12" default="1112" option="int" visible="!eq(-3,)" />
+        <setting label="32005" type="enum" id="kind12" lvalues="32010|32011|32012" visible="!eq(-3,3)+!eq(-4,)" />
+        <setting label="32005" type="number" id="dimm12" default="50.0" option="int" visible="false" />
+        <setting type="sep" visible="!eq(-6,)" />
+        <setting label="32001" type="text" id="name13" default="" visible="!eq(-7,)" />
+        <setting label="32002" type="labelenum" id="type13" values="FS20|IT|UNIROLL|SCENE" visible="!eq(-1,)" />
+        <setting label="32003" type="text" id="code13" default="A" visible="eq(-1,1)+!eq(-1,3)+!eq(-4,)" />
+        <setting label="32004" type="number" id="addr13" default="1112" option="int" visible="!eq(-3,)" />
+        <setting label="32005" type="enum" id="kind13" lvalues="32010|32011|32012" visible="!eq(-3,3)+!eq(-4,)" />
+        <setting label="32005" type="number" id="dimm13" default="50.0" option="int" visible="false" />
+        <setting type="sep" visible="!eq(-6,)" />
+        <setting label="32001" type="text" id="name14" default="" visible="!eq(-7,)" />
+        <setting label="32002" type="labelenum" id="type14" values="FS20|IT|UNIROLL|SCENE" visible="!eq(-1,)" />
+        <setting label="32003" type="text" id="code14" default="A" visible="eq(-1,1)+!eq(-1,3)+!eq(-4,)" />
+        <setting label="32004" type="number" id="addr14" default="1112" option="int" visible="!eq(-3,)" />
+        <setting label="32005" type="enum" id="kind14" lvalues="32010|32011|32012" visible="!eq(-3,3)+!eq(-4,)" />
+        <setting label="32005" type="number" id="dimm14" default="50.0" option="int" visible="false" />
+        <setting type="sep" visible="!eq(-6,)" />
+        <setting label="32001" type="text" id="name15" default="" visible="!eq(-7,)" />
+        <setting label="32002" type="labelenum" id="type15" values="FS20|IT|UNIROLL|SCENE" visible="!eq(-1,)" />
+        <setting label="32003" type="text" id="code15" default="A" visible="eq(-1,1)+!eq(-1,3)+!eq(-4,)" />
+        <setting label="32004" type="number" id="addr15" default="1112" option="int" visible="!eq(-3,)" />
+        <setting label="32005" type="enum" id="kind15" lvalues="32010|32011|32012" visible="!eq(-3,3)+!eq(-4,)" />
+        <setting label="32005" type="number" id="dimm15" default="50.0" option="int" visible="false" />
+        <setting type="sep" visible="!eq(-6,)" />
+        <setting label="32001" type="text" id="name16" default="" visible="!eq(-7,)" />
+        <setting label="32002" type="labelenum" id="type16" values="FS20|IT|UNIROLL|SCENE" visible="!eq(-1,)" />
+        <setting label="32003" type="text" id="code16" default="A" visible="eq(-1,1)+!eq(-1,3)+!eq(-4,)" />
+        <setting label="32004" type="number" id="addr16" default="1112" option="int" visible="!eq(-3,)" />
+        <setting label="32005" type="enum" id="kind16" lvalues="32010|32011|32012" visible="!eq(-3,3)+!eq(-4,)" />
+        <setting label="32005" type="number" id="dimm16" default="50.0" option="int" visible="false" />
+        <setting type="sep" visible="!eq(-6,)" />
+        <setting label="32001" type="text" id="name17" default="" visible="!eq(-7,)" />
+        <setting label="32002" type="labelenum" id="type17" values="FS20|IT|UNIROLL|SCENE" visible="!eq(-1,)" />
+        <setting label="32003" type="text" id="code17" default="A" visible="eq(-1,1)+!eq(-1,3)+!eq(-4,)" />
+        <setting label="32004" type="number" id="addr17" default="1112" option="int" visible="!eq(-3,)" />
+        <setting label="32005" type="enum" id="kind17" lvalues="32010|32011|32012" visible="!eq(-3,3)+!eq(-4,)" />
+        <setting label="32005" type="number" id="dimm17" default="50.0" option="int" visible="false" />
+        <setting type="sep" visible="!eq(-6,)" />
+        <setting label="32001" type="text" id="name18" default="" visible="!eq(-7,)" />
+        <setting label="32002" type="labelenum" id="type18" values="FS20|IT|UNIROLL|SCENE" visible="!eq(-1,)" />
+        <setting label="32003" type="text" id="code18" default="A" visible="eq(-1,1)+!eq(-1,3)+!eq(-4,)" />
+        <setting label="32004" type="number" id="addr18" default="1112" option="int" visible="!eq(-3,)" />
+        <setting label="32005" type="enum" id="kind18" lvalues="32010|32011|32012" visible="!eq(-3,3)+!eq(-4,)" />
+        <setting label="32005" type="number" id="dimm18" default="50.0" option="int" visible="false" />
+        <setting type="sep" visible="!eq(-6,)" />
+        <setting label="32001" type="text" id="name19" default="" visible="!eq(-7,)" />
+        <setting label="32002" type="labelenum" id="type19" values="FS20|IT|UNIROLL|SCENE" visible="!eq(-1,)" />
+        <setting label="32003" type="text" id="code19" default="A" visible="eq(-1,1)+!eq(-1,3)+!eq(-4,)" />
+        <setting label="32004" type="number" id="addr19" default="1112" option="int" visible="!eq(-3,)" />
+        <setting label="32005" type="enum" id="kind19" lvalues="32010|32011|32012" visible="!eq(-3,3)+!eq(-4,)" />
+        <setting label="32005" type="number" id="dimm19" default="50.0" option="int" visible="false" />
+        <setting type="sep" visible="!eq(-6,)" />
+        <setting label="32001" type="text" id="name20" default="" visible="!eq(-7,)" />
+        <setting label="32002" type="labelenum" id="type20" values="FS20|IT|UNIROLL|SCENE" visible="!eq(-1,)" />
+        <setting label="32003" type="text" id="code20" default="A" visible="eq(-1,1)+!eq(-1,3)+!eq(-4,)" />
+        <setting label="32004" type="number" id="addr20" default="1112" option="int" visible="!eq(-3,)" />
+        <setting label="32005" type="enum" id="kind20" lvalues="32010|32011|32012" visible="!eq(-3,3)+!eq(-4,)" />
+        <setting label="32005" type="number" id="dimm20" default="50.0" option="int" visible="false" />
+        <setting type="sep" visible="!eq(-6,)" />
+        <setting label="32001" type="text" id="name21" default="" visible="!eq(-7,)" />
+        <setting label="32002" type="labelenum" id="type21" values="FS20|IT|UNIROLL|SCENE" visible="!eq(-1,)" />
+        <setting label="32003" type="text" id="code21" default="A" visible="eq(-1,1)+!eq(-1,3)+!eq(-4,)" />
+        <setting label="32004" type="number" id="addr21" default="1112" option="int" visible="!eq(-3,)" />
+        <setting label="32005" type="enum" id="kind21" lvalues="32010|32011|32012" visible="!eq(-3,3)+!eq(-4,)" />
+        <setting label="32005" type="number" id="dimm21" default="50.0" option="int" visible="false" />
+        <setting type="sep" visible="!eq(-6,)" />
+        <setting label="32001" type="text" id="name22" default="" visible="!eq(-7,)" />
+        <setting label="32002" type="labelenum" id="type22" values="FS20|IT|UNIROLL|SCENE" visible="!eq(-1,)" />
+        <setting label="32003" type="text" id="code22" default="A" visible="eq(-1,1)+!eq(-1,3)+!eq(-4,)" />
+        <setting label="32004" type="number" id="addr22" default="1112" option="int" visible="!eq(-3,)" />
+        <setting label="32005" type="enum" id="kind22" lvalues="32010|32011|32012" visible="!eq(-3,3)+!eq(-4,)" />
+        <setting label="32005" type="number" id="dimm22" default="50.0" option="int" visible="false" />
+        <setting type="sep" visible="!eq(-6,)" />
+        <setting label="32001" type="text" id="name23" default="" visible="!eq(-7,)" />
+        <setting label="32002" type="labelenum" id="type23" values="FS20|IT|UNIROLL|SCENE" visible="!eq(-1,)" />
+        <setting label="32003" type="text" id="code23" default="A" visible="eq(-1,1)+!eq(-1,3)+!eq(-4,)" />
+        <setting label="32004" type="number" id="addr23" default="1112" option="int" visible="!eq(-3,)" />
+        <setting label="32005" type="enum" id="kind23" lvalues="32010|32011|32012" visible="!eq(-3,3)+!eq(-4,)" />
+        <setting label="32005" type="number" id="dimm23" default="50.0" option="int" visible="false" />
+        <setting type="sep" visible="!eq(-6,)" />
+        <setting label="32001" type="text" id="name24" default="" visible="!eq(-7,)" />
+        <setting label="32002" type="labelenum" id="type24" values="FS20|IT|UNIROLL|SCENE" visible="!eq(-1,)" />
+        <setting label="32003" type="text" id="code24" default="A" visible="eq(-1,1)+!eq(-1,3)+!eq(-4,)" />
+        <setting label="32004" type="number" id="addr24" default="1112" option="int" visible="!eq(-3,)" />
+        <setting label="32005" type="enum" id="kind24" lvalues="32010|32011|32012" visible="!eq(-3,3)+!eq(-4,)" />
+        <setting label="32005" type="number" id="dimm24" default="50.0" option="int" visible="false" />
+        <setting type="sep" visible="!eq(-6,)" />
+        <setting label="32001" type="text" id="name25" default="" visible="!eq(-7,)" />
+        <setting label="32002" type="labelenum" id="type25" values="FS20|IT|UNIROLL|SCENE" visible="!eq(-1,)" />
+        <setting label="32003" type="text" id="code25" default="A" visible="eq(-1,1)+!eq(-1,3)+!eq(-4,)" />
+        <setting label="32004" type="number" id="addr25" default="1112" option="int" visible="!eq(-3,)" />
+        <setting label="32005" type="enum" id="kind25" lvalues="32010|32011|32012" visible="!eq(-3,3)+!eq(-4,)" />
+        <setting label="32005" type="number" id="dimm25" default="50.0" option="int" visible="false" />
+        <setting type="sep" visible="!eq(-6,)" />
+        <setting label="32001" type="text" id="name26" default="" visible="!eq(-7,)" />
+        <setting label="32002" type="labelenum" id="type26" values="FS20|IT|UNIROLL|SCENE" visible="!eq(-1,)" />
+        <setting label="32003" type="text" id="code26" default="A" visible="eq(-1,1)+!eq(-1,3)+!eq(-4,)" />
+        <setting label="32004" type="number" id="addr26" default="1112" option="int" visible="!eq(-3,)" />
+        <setting label="32005" type="enum" id="kind26" lvalues="32010|32011|32012" visible="!eq(-3,3)+!eq(-4,)" />
+        <setting label="32005" type="number" id="dimm26" default="50.0" option="int" visible="false" />
+    </category>
+    <category label="32100">
+        <setting label="32101" type="executable" id="lightman" default="" />
+        <setting label="32102" type="text" id="sudo" default="" />
+        <setting label="32103" type="number" id="house" default="0" option="int" />
+    </category>
+</settings>
+

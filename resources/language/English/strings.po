@@ -1,0 +1,128 @@
+# XBMC Media Center language file
+# Addon Name: Light Manager
+# Addon id: script.lightmanager
+# Addon Provider: AvanOsch
+msgid ""
+msgstr ""
+"Project-Id-Version: XBMC Addons\n"
+"Report-Msgid-Bugs-To: Albert@AvanOsch.nl\n"
+"POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: AvanOsch\n"
+"Language-Team: English (http://www.transifex.com/projects/p/xbmc-addons/language/en/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgctxt "#32000"
+msgid "Device"
+msgstr ""
+
+msgctxt "#32001"
+msgid "Name:"
+msgstr ""
+
+msgctxt "#32002"
+msgid "Type:"
+msgstr ""
+
+msgctxt "#32003"
+msgid "Housecode:"
+msgstr ""
+
+msgctxt "#32004"
+msgid "Address:"
+msgstr ""
+
+msgctxt "#32005"
+msgid "Device:"
+msgstr ""
+
+msgctxt "#32010"
+msgid "Dimmer"
+msgstr ""
+
+msgctxt "#32011"
+msgid "On/Off"
+msgstr ""
+
+msgctxt "#32012"
+msgid "Jalousie"
+msgstr ""
+
+
+msgctxt "#32100"
+msgid "General Settings"
+msgstr ""
+
+msgctxt "#32101"
+msgid "LightManager Executable:"
+msgstr ""
+
+msgctxt "#32102"
+msgid "sudo Password (if needed):"
+msgstr ""
+
+msgctxt "#32103"
+msgid "FS20 Housecode:"
+msgstr ""
+
+
+msgctxt "#32200"
+msgid "Light Manager"
+msgstr ""
+
+msgctxt "#32201"
+msgid "On"
+msgstr ""
+
+msgctxt "#32202"
+msgid "Off"
+msgstr ""
+
+msgctxt "#32203"
+msgid "Toggle"
+msgstr ""
+
+msgctxt "#32204"
+msgid "Up"
+msgstr ""
+
+msgctxt "#32205"
+msgid "Down"
+msgstr ""
+
+msgctxt "#32206"
+msgid "Press to Toggle"
+msgstr ""
+
+msgctxt "#32207"
+msgid "Press to switch On"
+msgstr ""
+
+msgctxt "#32208"
+msgid "Press to switch Off"
+msgstr ""
+
+msgctxt "#32209"
+msgid "Press for Up"
+msgstr ""
+
+msgctxt "#32210"
+msgid "Press for Down"
+msgstr ""
+
+msgctxt "#32211"
+msgid "Slide (left/right), and press to Send"
+msgstr ""
+
+msgctxt "#32212"
+msgid "Sending "
+msgstr ""
+
+msgctxt "#32213"
+msgid "No LightManager! Try using sudo!"
+msgstr ""
+
