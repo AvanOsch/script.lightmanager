@@ -22,8 +22,6 @@ housecode = __addon__.getSetting('house')
 lightnum  = 0
 names     = []
 types     = []
-codes     = []
-addrs     = []
 kinds     = []
 dimms     = []
 if sudo != '':
@@ -36,8 +34,6 @@ while True:
         break
     names.append(name)
     types.append(__addon__.getSetting('type' + ln))
-    codes.append(__addon__.getSetting('code' + ln))
-    addrs.append(__addon__.getSetting('addr' + ln))
     kinds.append(__addon__.getSetting('kind' + ln))
     dimms.append(float(__addon__.getSetting('dimm' + ln)))
     lightnum += 1
@@ -73,6 +69,9 @@ class LightDialog(pyxbmct.AddonDialogWindow):
             self.offbutton.append(0)
             self.slider.append(0)
             if types[n] != "SCENE":
+# InterTechno Dimmers of type "DIP" don't seem to accept percentage strings (work as "TOGGLE")
+# The following line would automatically make "IT Dimmers" On/Off devices. 
+#               if kinds[n] == "0" and (types[n] != "IT" or __addon__.getSetting('lurn' + str(n +1)) != "DIP"):
                 if kinds[n] == "0":
                     self.slider[n] = pyxbmct.Slider()
                     self.placeControl(self.slider[n], rownum, colnum + 1, rowspan=1, columnspan=2)
@@ -159,13 +158,17 @@ class LightDialog(pyxbmct.AddonDialogWindow):
         return oldMsg
 
     def execute_cmd(self, n, act=''):
+        ln = str(n + 1)
         cmd = ''
         if types[n] == "FS20":
             cmd += ' -h ' + housecode
         cmd += ' -c "' + types[n]
+        if types[n] == "IT" or types[n] == "IKEA":
+            cmd += ' ' + __addon__.getSetting('code' + ln)
+        cmd += ' ' + __addon__.getSetting('addr' + ln)
         if types[n] == "IT":
-            cmd += ' ' + codes[n]
-        cmd += ' ' + addrs[n] + act + '"'
+            cmd += ' ' + __addon__.getSetting('lurn' + ln)
+        cmd += ' ' + act + '"'
         log('Executing: ' + lightman + cmd + '\n', xbmc.LOGDEBUG)
         try:
             p = subprocess.Popen(lightman + cmd, stdout=subprocess.PIPE, shell=True)
@@ -192,24 +195,24 @@ class LightDialog(pyxbmct.AddonDialogWindow):
             try:
                 if control == self.slider[n]:
                     msgOld = self.notify('{:}'.format(names[n] + ': ' + msg + str(int(dimms[n])) + '%'))
-                    self.notify('{:}'.format(self.execute_cmd(n, ' ' + str(int(dimms[n])) + '%')))
+                    self.notify('{:}'.format(self.execute_cmd(n, str(int(dimms[n])) + '%')))
                 if control == self.cbutton[n]:
                     msgOld = self.notify('{:}'.format(names[n] + ': ' + msg + __addon__.getLocalizedString(32203)))
-                    self.notify('{:}'.format(self.execute_cmd(n, ' TOGGLE')))
+                    self.notify('{:}'.format(self.execute_cmd(n, 'TOGGLE')))
                 if control == self.onbutton[n]:
                     if kinds[n] == "2":
                         msgOld = self.notify('{:}'.format(names[n] + ': ' + msg + __addon__.getLocalizedString(32204)))
-                        self.notify('{:}'.format(self.execute_cmd(n, ' UP')))
+                        self.notify('{:}'.format(self.execute_cmd(n, 'UP')))
                     else:
                         msgOld = self.notify('{:}'.format(names[n] + ': ' + msg + __addon__.getLocalizedString(32201)))
-                        self.notify('{:}'.format(self.execute_cmd(n, ' ON')))
+                        self.notify('{:}'.format(self.execute_cmd(n, 'ON')))
                 if control == self.offbutton[n]:
                     if kinds[n] == "2":
                         msgOld = self.notify('{:}'.format(names[n] + ': ' + msg + __addon__.getLocalizedString(32205)))
-                        self.notify('{:}'.format(self.execute_cmd(n, ' DOWN')))
+                        self.notify('{:}'.format(self.execute_cmd(n, 'DOWN')))
                     else:
                         msgOld = self.notify('{:}'.format(names[n] + ': ' + msg + __addon__.getLocalizedString(32202)))
-                        self.notify('{:}'.format(self.execute_cmd(n, ' OFF')))
+                        self.notify('{:}'.format(self.execute_cmd(n, 'OFF')))
                 if msgOld != '':
                     time.sleep(2)
                     self.notify(msgOld)
@@ -231,7 +234,7 @@ class LightDialog(pyxbmct.AddonDialogWindow):
                     if control == self.slider[n]:
                         dimms[n] = self.slider[n].getPercent()
                         msgOld = self.notify('{:}'.format(names[n] + ': ' + __addon__.getLocalizedString(32212) + str(int(dimms[n])) + '%'))
-                        self.notify('{:}'.format(self.execute_cmd(n, ' ' + str(int(dimms[n])) + '%')))
+                        self.notify('{:}'.format(self.execute_cmd(n, str(int(dimms[n])) + '%')))
                         time.sleep(2)
                         self.notify(msgOld)
                         break
@@ -242,4 +245,3 @@ if __name__ == '__main__':
     lightManager = LightDialog()
     lightManager.doModal()
     del lightManager
-
