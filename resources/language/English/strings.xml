@@ -5,7 +5,8 @@
     <string id="32002">Type:</string>
     <string id="32003">Housecode:</string>
     <string id="32004">Address:</string>
-    <string id="32005">Device:</string>
+    <string id="32005">IT Type:</string>
+    <string id="32006">Device:</string>
     <string id="32010">Dimmer</string>
     <string id="32011">On/Off</string>
     <string id="32012">Jalousie</string>
@@ -30,4 +31,3 @@
     <string id="32212">Sending </string>
     <string id="32213">No LightManager! Try using sudo!</string>
   </strings>
-
