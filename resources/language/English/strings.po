@@ -37,6 +37,10 @@ msgid "Address:"
 msgstr ""
 
 msgctxt "#32005"
+msgid "IT Type:"
+msgstr ""
+
+msgctxt "#32006"
 msgid "Device:"
 msgstr ""
 
@@ -125,4 +129,3 @@ msgstr ""
 msgctxt "#32213"
 msgid "No LightManager! Try using sudo!"
 msgstr ""
-
