@@ -3,4 +3,4 @@ Control jBMedia Lightmanager from Kodi on Linux systems
 
 This addon will create an interface to control your LightManger from within kodi.
 
-It requires https://github.com/curzon01/light-manager-c-ext to be installed
+It requires https://github.com/curzon01/light-manager-c-ext to be installed or running as server on another system
