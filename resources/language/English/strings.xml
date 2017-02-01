@@ -12,9 +12,15 @@
     <string id="32012">Jalousie</string>
 
     <string id="32100">General Settings</string>
-    <string id="32101">LightManager Executable:</string>
-    <string id="32102">sudo Password (if needed):</string>
-    <string id="32103">FS20 Housecode:</string>
+    <string id="32101">Local, Remote or Server</string>
+    <string id="32102">LightManager Executable:</string>
+    <string id="32103">LightManager Address:</string>
+    <string id="32104">Remote port:</string>
+    <string id="32105">sudo Password (if needed):</string>
+    <string id="32106">FS20 Housecode:</string>
+    <string id="32120">Local</string>
+    <string id="32121">Remote</string>
+    <string id="32122">Server</string>
 
     <string id="32200">Light Manager</string>
     <string id="32201">On</string>
@@ -30,4 +36,6 @@
     <string id="32211">Slide (left/right), and press to Send</string>
     <string id="32212">Sending </string>
     <string id="32213">No LightManager! Try using sudo!</string>
+    <string id="32214">Page not found! Check server settings!</string>
+    <string id="32215">No LightManager Server Found!</string>
   </strings>
