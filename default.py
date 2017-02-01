@@ -1,6 +1,5 @@
 # Import modules
 import os, time, xbmc, xbmcaddon, xbmcgui, pyxbmct, subprocess
-# from threading import Timer
 
 # Constants
 ACTION_PREV_MENU = 10
@@ -16,9 +15,12 @@ def log(message,loglevel=xbmc.LOGNOTICE):
     xbmc.log(("@@@ LightManager: " + message).encode('UTF-8','replace'),level=loglevel)
 
 # Get settings
+remote    = __addon__.getSetting('remote')
 lightman  = __addon__.getSetting('lightman')
 sudo      = __addon__.getSetting('sudo')
 housecode = __addon__.getSetting('house')
+lightadr  = __addon__.getSetting('lightadr')
+lightport = __addon__.getSetting('lightport')
 lightnum  = 0
 names     = []
 types     = []
@@ -26,6 +28,24 @@ kinds     = []
 dimms     = []
 if sudo != '':
     lightman = 'echo "' + sudo + '" | sudo -S ' + lightman
+if remote != "0":
+    import urllib2
+    if remote == "2":
+        log('Check!')
+        lightadr = xbmc.getIPAddress()
+        cmd = ' -d -s -h ' + housecode + ' -p ' + lightport
+        log('Starting Server: ' + lightman + cmd + '\n')
+        try:
+            p = subprocess.Popen(lightman + cmd, stdout=subprocess.PIPE, shell=True)
+        except OSError:
+            msg = 'FAILED: ' + cmd
+            log(msg + '\n', xbmc.LOGDEBUG)
+        out, err = p.communicate()
+        if len(out.splitlines()) > 0:
+            outmsg = str(out.splitlines()[0])
+            log('Returned: ' + outmsg + '\n', xbmc.LOGDEBUG)
+    lightman = 'http://' + lightadr + ':' + lightport + '/cmd='
+
 # Get Device Settings
 while True:
     ln = str(lightnum + 1)
@@ -98,7 +118,7 @@ class LightDialog(pyxbmct.AddonDialogWindow):
                 nd = 0
             if n == 0:
                 self.setFocus(self.cbutton[n])
-                self.msg_label.setLabel('{:}'.format(names[n] + ': ' + __addon__.getLocalizedString(32206)))
+                self.msg_label.setLabel(names[n] + ': ' + __addon__.getLocalizedString(32206))
                 nu = lightnum - 1
             if nu < 0:
                 nu = 0
@@ -131,23 +151,23 @@ class LightDialog(pyxbmct.AddonDialogWindow):
                 if focused == self.slider[n]:
                     dimms[n] = self.slider[n].getPercent()
                     log('Received Sliding Action from: ' + names[n] + ' - at ' + str(dimms[n]) + '\n', xbmc.LOGDEBUG)
-                    self.msg_label.setLabel('{:}'.format(names[n] + ': ' + str(int(dimms[n])) + '%   ' + __addon__.getLocalizedString(32211)))
+                    self.msg_label.setLabel(names[n] + ': ' + str(int(dimms[n])) + '%   ' + __addon__.getLocalizedString(32211))
                     __addon__.setSetting('dimm' + str(n + 1), str(dimms[n]))
                     break
                 if focused == self.cbutton[n]:
-                    self.msg_label.setLabel('{:}'.format(names[n] + ': ' + __addon__.getLocalizedString(32206)))
+                    self.msg_label.setLabel(names[n] + ': ' + __addon__.getLocalizedString(32206))
                     break
                 if focused == self.onbutton[n]:
                     msg = __addon__.getLocalizedString(32207)
                     if kinds[n] == "2":
                         msg = __addon__.getLocalizedString(32209)
-                    self.msg_label.setLabel('{:}'.format(names[n] + ': ' + msg))
+                    self.msg_label.setLabel(names[n] + ': ' + msg)
                     break
                 if focused == self.offbutton[n]:
                     msg = __addon__.getLocalizedString(32208)
                     if kinds[n] == "2":
                         msg = __addon__.getLocalizedString(32210)
-                    self.msg_label.setLabel('{:}'.format(names[n] + ': ' + msg))
+                    self.msg_label.setLabel(names[n] + ': ' + msg)
                     break
             except (RuntimeError, SystemError):
                 pass
@@ -160,31 +180,57 @@ class LightDialog(pyxbmct.AddonDialogWindow):
     def execute_cmd(self, n, act=''):
         ln = str(n + 1)
         cmd = ''
-        if types[n] == "FS20":
-            cmd += ' -h ' + housecode
-        cmd += ' -c "' + types[n]
+        if remote == "0":
+            if types[n] == "FS20":
+                cmd += ' -h ' + housecode
+            cmd += ' -c "'
+        cmd += types[n]
         if types[n] == "IT" or types[n] == "IKEA":
             cmd += ' ' + __addon__.getSetting('code' + ln)
         cmd += ' ' + __addon__.getSetting('addr' + ln)
         if types[n] == "IT":
             cmd += ' ' + __addon__.getSetting('lurn' + ln)
-        cmd += ' ' + act + '"'
-        log('Executing: ' + lightman + cmd + '\n', xbmc.LOGDEBUG)
-        try:
-            p = subprocess.Popen(lightman + cmd, stdout=subprocess.PIPE, shell=True)
-        except OSError:
-            msg = 'FAILED: ' + cmd
-            log(msg + '\n', xbmc.LOGDEBUG)
-            dialog = xbmcgui.Dialog()
-            dialog.notification('LightManager', msg, xbmcgui.NOTIFICATION_ERROR, 5000)
-        out, err = p.communicate()
+        cmd += ' ' + act
+        if remote == "0":
+            cmd += '"'
+            log('Executing: ' + lightman + cmd + '\n', xbmc.LOGDEBUG)
+            try:
+                p = subprocess.Popen(lightman + cmd, stdout=subprocess.PIPE, shell=True)
+            except OSError:
+                msg = 'FAILED: ' + cmd
+                log(msg + '\n', xbmc.LOGDEBUG)
+                dialog = xbmcgui.Dialog()
+                dialog.notification('LightManager', msg, xbmcgui.NOTIFICATION_ERROR, 5000)
+            out, err = p.communicate()
+        else:
+            out = '';
+            log('Sending: ' + lightman + cmd + '\n', xbmc.LOGDEBUG)
+            if cmd.endswith('%'):
+                cmd += '25'
+            try:
+                p = urllib2.urlopen(lightman + cmd)
+                out = p.read()
+                p.close()
+            except urllib2.HTTPError, err:
+                msg = 'FAILED: ' + cmd + ', ' + str(err.reason)
+                log(msg + '\n', xbmc.LOGDEBUG)
+                dialog = xbmcgui.Dialog()
+                dialog.notification('LightManager', __addon__.getLocalizedString(32214), xbmcgui.NOTIFICATION_ERROR, 5000)
+            except urllib2.URLError, err:
+                msg = 'FAILED: ' + cmd + ', ' + str(err.reason)
+                log(msg + '\n', xbmc.LOGDEBUG)
+                dialog = xbmcgui.Dialog()
+                dialog.notification('LightManager', __addon__.getLocalizedString(32215), xbmcgui.NOTIFICATION_ERROR, 5000)
         if len(out.splitlines()) > 0:
-            outmsg = str(out.splitlines()[0])
+            if remote == "0":
+                outmsg = str(out.splitlines()[0])
+            else:
+                outmsg = str(out.splitlines()[7])[:-6]
             log('Returned: ' + outmsg + '\n', xbmc.LOGDEBUG)
             if "USB" in outmsg:
                 dialog = xbmcgui.Dialog()
                 dialog.notification('LightManager', __addon__.getLocalizedString(32213), xbmcgui.NOTIFICATION_ERROR, 5000)
-            return str(out.splitlines()[0])
+            return outmsg
         else:
             return ''
 
@@ -194,25 +240,25 @@ class LightDialog(pyxbmct.AddonDialogWindow):
         for n in range(lightnum):
             try:
                 if control == self.slider[n]:
-                    msgOld = self.notify('{:}'.format(names[n] + ': ' + msg + str(int(dimms[n])) + '%'))
-                    self.notify('{:}'.format(self.execute_cmd(n, str(int(dimms[n])) + '%')))
+                    msgOld = self.notify(names[n] + ': ' + msg + str(int(dimms[n])) + '%')
+                    self.notify(self.execute_cmd(n, str(int(dimms[n])) + '%'))
                 if control == self.cbutton[n]:
-                    msgOld = self.notify('{:}'.format(names[n] + ': ' + msg + __addon__.getLocalizedString(32203)))
-                    self.notify('{:}'.format(self.execute_cmd(n, 'TOGGLE')))
+                    msgOld = self.notify(names[n] + ': ' + msg + __addon__.getLocalizedString(32203))
+                    self.notify(self.execute_cmd(n, 'TOGGLE'))
                 if control == self.onbutton[n]:
                     if kinds[n] == "2":
-                        msgOld = self.notify('{:}'.format(names[n] + ': ' + msg + __addon__.getLocalizedString(32204)))
-                        self.notify('{:}'.format(self.execute_cmd(n, 'UP')))
+                        msgOld = self.notify(names[n] + ': ' + msg + __addon__.getLocalizedString(32204))
+                        self.notify(self.execute_cmd(n, 'UP'))
                     else:
-                        msgOld = self.notify('{:}'.format(names[n] + ': ' + msg + __addon__.getLocalizedString(32201)))
-                        self.notify('{:}'.format(self.execute_cmd(n, 'ON')))
+                        msgOld = self.notify(names[n] + ': ' + msg + __addon__.getLocalizedString(32201))
+                        self.notify(self.execute_cmd(n, 'ON'))
                 if control == self.offbutton[n]:
                     if kinds[n] == "2":
-                        msgOld = self.notify('{:}'.format(names[n] + ': ' + msg + __addon__.getLocalizedString(32205)))
-                        self.notify('{:}'.format(self.execute_cmd(n, 'DOWN')))
+                        msgOld = self.notify(names[n] + ': ' + msg + __addon__.getLocalizedString(32205))
+                        self.notify(self.execute_cmd(n, 'DOWN'))
                     else:
-                        msgOld = self.notify('{:}'.format(names[n] + ': ' + msg + __addon__.getLocalizedString(32202)))
-                        self.notify('{:}'.format(self.execute_cmd(n, 'OFF')))
+                        msgOld = self.notify(names[n] + ': ' + msg + __addon__.getLocalizedString(32202))
+                        self.notify(self.execute_cmd(n, 'OFF'))
                 if msgOld != '':
                     time.sleep(2)
                     self.notify(msgOld)
@@ -233,8 +279,8 @@ class LightDialog(pyxbmct.AddonDialogWindow):
                 try:
                     if control == self.slider[n]:
                         dimms[n] = self.slider[n].getPercent()
-                        msgOld = self.notify('{:}'.format(names[n] + ': ' + __addon__.getLocalizedString(32212) + str(int(dimms[n])) + '%'))
-                        self.notify('{:}'.format(self.execute_cmd(n, str(int(dimms[n])) + '%')))
+                        msgOld = self.notify(names[n] + ': ' + __addon__.getLocalizedString(32212) + str(int(dimms[n])) + '%')
+                        self.notify(self.execute_cmd(n, str(int(dimms[n])) + '%'))
                         time.sleep(2)
                         self.notify(msgOld)
                         break
