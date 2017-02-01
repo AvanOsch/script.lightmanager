@@ -210,8 +210,11 @@
         <setting label="32006" type="number" id="dimm26" default="50.0" option="int" visible="false" />
     </category>
     <category label="32100">
-        <setting label="32101" type="executable" id="lightman" default="" />
-        <setting label="32102" type="text" id="sudo" default="" />
-        <setting label="32103" type="number" id="house" default="0" option="int" />
+        <setting label="32101" type="enum" id="remote" lvalues="32120|32121|32122" />
+        <setting label="32102" type="executable" id="lightman" default="" visible="!eq(-1,1)" />
+        <setting label="32103" type="text" id="lightadr" default="192.168.0.16" option="ipaddress" visible="eq(-2,1)" />
+        <setting label="32104" type="number" id="lightport" default="3456" option="int" visible="!eq(-3,0)" />
+        <setting label="32105" type="text" id="sudo" default="" option="hidden" visible="!eq(-4,1)" />
+        <setting label="32106" type="number" id="house" default="0" option="int" visible="!eq(-5,1)" />
     </category>
 </settings>
