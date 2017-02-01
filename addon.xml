@@ -12,7 +12,7 @@
   </extension>
   <extension point="xbmc.addon.metadata">
     <platform>all</platform>
-    <summary lang="en">Control your lights through Kodi on Linux.</summary>
-    <description lang="en">This add-on gives you an interface to control your lights using a jBMedia LightManager. You can add your lights with the proper commands from the settings page.</description>
+    <summary lang="en">Control your lights through Kodi.</summary>
+    <description lang="en">This add-on gives you an interface to control your lights using a jBMedia LightManager connected to a Linux system. Run lightmanager from linux, or control a lightmanager server from any other OS. You can add your lights with the proper commands from the settings page.</description>
   </extension>
 </addon>
