@@ -62,15 +62,39 @@ msgid "General Settings"
 msgstr ""
 
 msgctxt "#32101"
-msgid "LightManager Executable:"
+msgid "Local, Remote or Server:"
 msgstr ""
 
 msgctxt "#32102"
-msgid "sudo Password (if needed):"
+msgid "LightManager Executable:"
 msgstr ""
 
 msgctxt "#32103"
+msgid "LightManager Address:"
+msgstr ""
+
+msgctxt "#32104"
+msgid "Remote Port:"
+msgstr ""
+
+msgctxt "#32105"
+msgid "sudo Password (if needed):"
+msgstr ""
+
+msgctxt "#32106"
 msgid "FS20 Housecode:"
+msgstr ""
+
+msgctxt "#32120"
+msgid "Local"
+msgstr ""
+
+msgctxt "#32121"
+msgid "Remote"
+msgstr ""
+
+msgctxt "#32122"
+msgid "Server"
 msgstr ""
 
 
@@ -128,4 +152,12 @@ msgstr ""
 
 msgctxt "#32213"
 msgid "No LightManager! Try using sudo!"
+msgstr ""
+
+msgctxt "#32214"
+msgid "Page not found! Check server settings!"
+msgstr ""
+
+msgctxt "#32215"
+msgid "No LightManager Server Found!"
 msgstr ""
