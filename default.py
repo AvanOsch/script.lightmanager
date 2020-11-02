@@ -186,11 +186,11 @@ class LightDialog(pyxbmct.AddonDialogWindow):
             cmd += ' -c "'
         cmd += types[n]
         if types[n] == "IT" or types[n] == "IKEA":
-            cmd += ' ' + __addon__.getSetting('code' + ln)
-        cmd += ' ' + __addon__.getSetting('addr' + ln)
+            cmd += '%20' + __addon__.getSetting('code' + ln)
+        cmd += '%20' + __addon__.getSetting('addr' + ln)
         if types[n] == "IT":
-            cmd += ' ' + __addon__.getSetting('lurn' + ln)
-        cmd += ' ' + act
+            cmd += '%20' + __addon__.getSetting('lurn' + ln)
+        cmd += '%20' + act
         if remote == "0":
             cmd += '"'
             log('Executing: ' + lightman + cmd + '\n', xbmc.LOGDEBUG)
