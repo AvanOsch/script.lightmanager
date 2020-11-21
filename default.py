@@ -13,6 +13,7 @@ __addon__ = xbmcaddon.Addon()
 # Utils
 def log(message,loglevel=xbmc.LOGNOTICE):
     xbmc.log(("@@@ LightManager: " + message).encode('UTF-8','replace'),level=loglevel)
+#    xbmc.log(("@@@ LightManager: " + message).encode('UTF-8','replace'),level=xbmc.LOGNOTICE)
 
 # Get settings
 remote    = __addon__.getSetting('remote')
@@ -31,19 +32,32 @@ if sudo != '':
 if remote != "0":
     import urllib2
     if remote == "2":
-        log('Check!')
         lightadr = xbmc.getIPAddress()
-        cmd = ' -d -s -h ' + housecode + ' -p ' + lightport
-        log('Starting Server: ' + lightman + cmd + '\n')
+        # check if server is running
         try:
-            p = subprocess.Popen(lightman + cmd, stdout=subprocess.PIPE, shell=True)
-        except OSError:
-            msg = 'FAILED: ' + cmd
-            log(msg + '\n', xbmc.LOGDEBUG)
-        out, err = p.communicate()
-        if len(out.splitlines()) > 0:
-            outmsg = str(out.splitlines()[0])
-            log('Returned: ' + outmsg + '\n', xbmc.LOGDEBUG)
+            p = urllib2.urlopen('http://' + lightadr + ':' + lightport + '/cmd=VERSION')
+# "out" could be used to get Linux Lightmanager version...
+#            out = p.read()
+            p.close()
+#            if len(out.splitlines()) > 0:
+#                outmsg = str(out.splitlines()[7])[:-6]
+#                log('Returned: ' + outmsg + '\n', xbmc.LOGDEBUG)
+        except urllib2.HTTPError, err:
+            msg = 'FAILED: Version check, ' + str(err.reason)
+            log(msg + '\n')
+        except urllib2.URLError, err:
+            # Server seems to be down. Start it.
+            cmd = ' -d -s -h ' + housecode + ' -p ' + lightport
+            log('Starting Server: ' + lightman + cmd + '\n')
+            try:
+                p = subprocess.Popen(lightman + cmd, stdout=subprocess.PIPE, shell=True)
+            except OSError:
+                msg = 'FAILED: ' + cmd
+                log(msg + '\n', xbmc.LOGDEBUG)
+            out, err = p.communicate()
+            if len(out.splitlines()) > 0:
+                outmsg = str(out.splitlines()[0])
+                log('Returned: ' + outmsg + '\n', xbmc.LOGDEBUG)
     lightman = 'http://' + lightadr + ':' + lightport + '/cmd='
 
 # Get Device Settings
@@ -55,7 +69,7 @@ while True:
     names.append(name)
     types.append(__addon__.getSetting('type' + ln))
     kinds.append(__addon__.getSetting('kind' + ln))
-    dimms.append(float(__addon__.getSetting('dimm' + ln)))
+    dimms.append(int(__addon__.getSetting('dimm' + ln)))
     lightnum += 1
     log('Added settings for: ' + name + '\n', xbmc.LOGDEBUG)
 
@@ -90,7 +104,7 @@ class LightDialog(pyxbmct.AddonDialogWindow):
             self.slider.append(0)
             if types[n] != "SCENE":
 # InterTechno Dimmers of type "DIP" don't seem to accept percentage strings (work as "TOGGLE")
-# The following line would automatically make "IT Dimmers" On/Off devices. 
+# The following line would automatically make "IT Dimmers" On/Off devices.
 #               if kinds[n] == "0" and (types[n] != "IT" or __addon__.getSetting('lurn' + str(n +1)) != "DIP"):
                 if kinds[n] == "0":
                     self.slider[n] = pyxbmct.Slider()
@@ -152,7 +166,6 @@ class LightDialog(pyxbmct.AddonDialogWindow):
                     dimms[n] = self.slider[n].getPercent()
                     log('Received Sliding Action from: ' + names[n] + ' - at ' + str(dimms[n]) + '\n', xbmc.LOGDEBUG)
                     self.msg_label.setLabel(names[n] + ': ' + str(int(dimms[n])) + '%   ' + __addon__.getLocalizedString(32211))
-                    __addon__.setSetting('dimm' + str(n + 1), str(dimms[n]))
                     break
                 if focused == self.cbutton[n]:
                     self.msg_label.setLabel(names[n] + ': ' + __addon__.getLocalizedString(32206))
@@ -186,11 +199,11 @@ class LightDialog(pyxbmct.AddonDialogWindow):
             cmd += ' -c "'
         cmd += types[n]
         if types[n] == "IT" or types[n] == "IKEA":
-            cmd += '%20' + __addon__.getSetting('code' + ln)
-        cmd += '%20' + __addon__.getSetting('addr' + ln)
+            cmd += ' ' + __addon__.getSetting('code' + ln)
+        cmd += ' ' + __addon__.getSetting('addr' + ln)
         if types[n] == "IT":
-            cmd += '%20' + __addon__.getSetting('lurn' + ln)
-        cmd += '%20' + act
+            cmd += ' ' + __addon__.getSetting('lurn' + ln)
+        cmd += ' ' + act
         if remote == "0":
             cmd += '"'
             log('Executing: ' + lightman + cmd + '\n', xbmc.LOGDEBUG)
@@ -203,10 +216,10 @@ class LightDialog(pyxbmct.AddonDialogWindow):
                 dialog.notification('LightManager', msg, xbmcgui.NOTIFICATION_ERROR, 5000)
             out, err = p.communicate()
         else:
-            out = '';
+            out = ''
+            # convert spaces and % with %20 and %25
+            cmd = urllib2.quote(cmd)
             log('Sending: ' + lightman + cmd + '\n', xbmc.LOGDEBUG)
-            if cmd.endswith('%'):
-                cmd += '25'
             try:
                 p = urllib2.urlopen(lightman + cmd)
                 out = p.read()
@@ -281,6 +294,7 @@ class LightDialog(pyxbmct.AddonDialogWindow):
                         dimms[n] = self.slider[n].getPercent()
                         msgOld = self.notify(names[n] + ': ' + __addon__.getLocalizedString(32212) + str(int(dimms[n])) + '%')
                         self.notify(self.execute_cmd(n, str(int(dimms[n])) + '%'))
+                        __addon__.setSetting('dimm' + str(n + 1), str(int(dimms[n])))
                         time.sleep(2)
                         self.notify(msgOld)
                         break
