@@ -36,17 +36,31 @@ if remote != "0":
     if remote == "2":
         log('Check!')
         lightadr = xbmc.getIPAddress()
-        cmd = ' -d -s -h ' + housecode + ' -p ' + lightport
-        log('Starting Server: ' + lightman + cmd + '\n')
+        # check if server is running
         try:
-            p = subprocess.Popen(lightman + cmd, stdout=subprocess.PIPE, shell=True)
-        except OSError:
-            msg = 'FAILED: ' + cmd
-            log(msg + '\n', xbmc.LOGDEBUG)
-        out, err = p.communicate()
-        if len(out.splitlines()) > 0:
-            outmsg = str(out.splitlines()[0])
-            log('Returned: ' + outmsg + '\n', xbmc.LOGDEBUG)
+            p = urllib.request.urlopen('http://' + lightadr + ':' + lightport + '/cmd=VERSION')
+# "out" could be used to get Linux Lightmanager version...
+#            out = p.read()
+            p.close()
+#            if len(out.splitlines()) > 0:
+#                outmsg = str(out.splitlines()[7])[:-6]
+#                log('Returned: ' + outmsg + '\n', xbmc.LOGDEBUG)
+        except HTTPError as err:
+            msg = 'FAILED: Version check, ' + str(err.reason)
+            log(msg + '\n')
+        except URLError as err:
+            # Server seems to be down. Start it.
+            cmd = ' -d -s -h ' + housecode + ' -p ' + lightport
+            log('Starting Server: ' + lightman + cmd + '\n')
+            try:
+                p = subprocess.Popen(lightman + cmd, stdout=subprocess.PIPE, shell=True)
+            except OSError:
+                msg = 'FAILED: ' + cmd
+                log(msg + '\n', xbmc.LOGDEBUG)
+            out, err = p.communicate()
+            if len(out.splitlines()) > 0:
+                outmsg = str(out.splitlines()[0])
+                log('Returned: ' + outmsg + '\n', xbmc.LOGDEBUG)
     lightman = 'http://' + lightadr + ':' + lightport + '/cmd='
 
 # Get Device Settings
