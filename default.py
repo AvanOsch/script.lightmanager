@@ -11,9 +11,9 @@ ACTION_SELECT    = 7
 __addon__ = xbmcaddon.Addon()
 
 # Utils
-def log(message,loglevel=xbmc.LOGNOTICE):
-    xbmc.log(("@@@ LightManager: " + message).encode('UTF-8','replace'),level=loglevel)
-#    xbmc.log(("@@@ LightManager: " + message).encode('UTF-8','replace'),level=xbmc.LOGNOTICE)
+def log(message,loglevel=xbmc.LOGINFO):
+    xbmc.log("@@@ LightManager: " + message, level=loglevel)
+#    xbmc.log("@@@ LightManager: " + message, level=xbmc.LOGINFO)
 
 # Get settings
 remote    = __addon__.getSetting('remote')
@@ -30,34 +30,23 @@ dimms     = []
 if sudo != '':
     lightman = 'echo "' + sudo + '" | sudo -S ' + lightman
 if remote != "0":
-    import urllib2
+    import urllib.request
+    import urllib.parse
+    from urllib.error import URLError, HTTPError
     if remote == "2":
+        log('Check!')
         lightadr = xbmc.getIPAddress()
-        # check if server is running
+        cmd = ' -d -s -h ' + housecode + ' -p ' + lightport
+        log('Starting Server: ' + lightman + cmd + '\n')
         try:
-            p = urllib2.urlopen('http://' + lightadr + ':' + lightport + '/cmd=VERSION')
-# "out" could be used to get Linux Lightmanager version...
-#            out = p.read()
-            p.close()
-#            if len(out.splitlines()) > 0:
-#                outmsg = str(out.splitlines()[7])[:-6]
-#                log('Returned: ' + outmsg + '\n', xbmc.LOGDEBUG)
-        except urllib2.HTTPError, err:
-            msg = 'FAILED: Version check, ' + str(err.reason)
-            log(msg + '\n')
-        except urllib2.URLError, err:
-            # Server seems to be down. Start it.
-            cmd = ' -d -s -h ' + housecode + ' -p ' + lightport
-            log('Starting Server: ' + lightman + cmd + '\n')
-            try:
-                p = subprocess.Popen(lightman + cmd, stdout=subprocess.PIPE, shell=True)
-            except OSError:
-                msg = 'FAILED: ' + cmd
-                log(msg + '\n', xbmc.LOGDEBUG)
-            out, err = p.communicate()
-            if len(out.splitlines()) > 0:
-                outmsg = str(out.splitlines()[0])
-                log('Returned: ' + outmsg + '\n', xbmc.LOGDEBUG)
+            p = subprocess.Popen(lightman + cmd, stdout=subprocess.PIPE, shell=True)
+        except OSError:
+            msg = 'FAILED: ' + cmd
+            log(msg + '\n', xbmc.LOGDEBUG)
+        out, err = p.communicate()
+        if len(out.splitlines()) > 0:
+            outmsg = str(out.splitlines()[0])
+            log('Returned: ' + outmsg + '\n', xbmc.LOGDEBUG)
     lightman = 'http://' + lightadr + ':' + lightport + '/cmd='
 
 # Get Device Settings
@@ -218,18 +207,20 @@ class LightDialog(pyxbmct.AddonDialogWindow):
         else:
             out = ''
             # convert spaces and % with %20 and %25
-            cmd = urllib2.quote(cmd)
+            cmd = urllib.parse.quote(cmd)
             log('Sending: ' + lightman + cmd + '\n', xbmc.LOGDEBUG)
+            #if cmd.endswith('%'):
+            #    cmd += '25'
             try:
-                p = urllib2.urlopen(lightman + cmd)
+                p = urllib.request.urlopen(lightman + cmd)
                 out = p.read()
                 p.close()
-            except urllib2.HTTPError, err:
+            except HTTPError as err:
                 msg = 'FAILED: ' + cmd + ', ' + str(err.reason)
                 log(msg + '\n', xbmc.LOGDEBUG)
                 dialog = xbmcgui.Dialog()
                 dialog.notification('LightManager', __addon__.getLocalizedString(32214), xbmcgui.NOTIFICATION_ERROR, 5000)
-            except urllib2.URLError, err:
+            except URLError as err:
                 msg = 'FAILED: ' + cmd + ', ' + str(err.reason)
                 log(msg + '\n', xbmc.LOGDEBUG)
                 dialog = xbmcgui.Dialog()
@@ -238,7 +229,7 @@ class LightDialog(pyxbmct.AddonDialogWindow):
             if remote == "0":
                 outmsg = str(out.splitlines()[0])
             else:
-                outmsg = str(out.splitlines()[7])[:-6]
+                outmsg = str(out.splitlines()[7])[2:-7]
             log('Returned: ' + outmsg + '\n', xbmc.LOGDEBUG)
             if "USB" in outmsg:
                 dialog = xbmcgui.Dialog()
@@ -305,3 +296,4 @@ if __name__ == '__main__':
     lightManager = LightDialog()
     lightManager.doModal()
     del lightManager
+    del os, time, xbmc, xbmcaddon, xbmcgui, pyxbmct, subprocess, urllib.request, urllib.parse, URLError, HTTPError
